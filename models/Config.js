@@ -3,7 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const configSchema = mongoose.Schema({
     key : {type: String, required: true, unique: true},
-    state : {type: String, required : true},
+    state : {type: Number, required : true},
 })
 
 configSchema.plugin(uniqueValidator)

@@ -7,6 +7,8 @@ const configRoutes = require('./routes/Config')
 const syncRoutes = require('./routes/Sync')
 const productRoutes = require('./routes/Product')
 const locationRoutes = require('./routes/Location')
+const inventoryRoutes = require('./routes/Inventory')
+const detailsRoutes = require('./routes/Details')
 
 mongoose.connect('mongodb+srv://sa:125@cluster0.retey.mongodb.net/ScanSolutionsInventaires?retryWrites=true&w=majority', 
 { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('Connexion à MongoDB réussie !')).catch(() => console.log('Connexion à MongoDB échouée !'))
@@ -26,5 +28,7 @@ app.use('/api/configurations', configRoutes)
 app.use('/api/synchronisations', syncRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/locations', locationRoutes)
+app.use('/api/inventories', inventoryRoutes)
+app.use('/api/details', detailsRoutes)
 
 module.exports = app
