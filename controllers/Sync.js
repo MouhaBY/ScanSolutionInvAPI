@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 
 const Sync = require('../models/Sync')
 
+const API_TOKEN = "f78171b682bc4c08986c8067a8113ce6"
+
 exports.add = (req, res, next) => {
         const sync = new Sync({
             key: req.body.key,
@@ -35,6 +37,12 @@ exports.deleteSync = (req, res, next) => {
 }
   
 exports.getSyncs = (req, res, next) => {
+    let api_key = req.query.api_key
+    if (api_key == API_TOKEN){
     Sync.find().then((syncs) => { res.status(200).json({results : syncs}) })
     .catch((error) => { res.status(400).json({ error }) })
+    }
+    else {
+        return res.status(401).json({error : 'token incorrect'})
+    }
 }

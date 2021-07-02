@@ -5,6 +5,7 @@ exports.add = (req, res, next) => {
     for (let i = 0; i < len; i++) {
         const details = new Details({
             id: req.body[i].id,
+            inventory_id: req.body[i].inventory_id,
             location: req.body[i].location,
             barcode: req.body[i].barcode,
             quantity: req.body[i].quantity,

@@ -20,16 +20,18 @@ exports.signup = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
+    try{
     User.findOne({ username : req.body.username })
     .then(user => {
         if (!user){
             return res.status(401).json({error : 'user not found'})
         }
-        bcrypt.compare(req.body.password, user.password)
-        .then( valid => {
-            if (!valid){
+        /*bcrypt.compare(req.body.password, user.password)
+        .then( valid => {*/
+        if (req.body.password !== user.password){
                 return res.status(401).json({error : 'password incorrect'})
             }
+        else {
             res.status(200).json({
                 userId : user._id,
                 token : jwt.sign(
@@ -38,10 +40,10 @@ exports.login = (req, res, next) => {
                     { expiresIn: '24h' }
                 )
             })
-        })
-        .catch(error => res.status(500).json({ error }))
-    })
-    .catch(error => res.status(500).json({ error }))
+        }
+    }).catch((error) => { res.status(404).json({ error }) })
+    }
+    catch(error) { res.status(500).json({ error }) }
 }
 
 exports.getOneUser = (req, res, next) => {
